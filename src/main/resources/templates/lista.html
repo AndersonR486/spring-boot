@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Acervo de Livros</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <h1>Livros Cadastrados</h1>
+    <a th:href="@{/livros/novo}" class="btn">Novo Livro</a>
+
+    <form th:action="@{/livros}" method="get" style="margin-top: 15px;">
+        <input type="text" name="busca" placeholder="Buscar por título..." style="display: inline-block;">
+        <button type="submit" class="btn">Buscar</button>
+        <a th:href="@{/livros}" class="btn">Limpar</a>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Ano</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="l : ${livros}">
+                <td th:text="${l.id}"></td>
+                <td th:text="${l.titulo}"></td>
+                <td th:text="${l.autor}"></td>
+                <td th:text="${l.ano}"></td>
+                <td>
+                    <a th:href="@{/livros/editar/{id}(id=${l.id})}" class="btn">Editar</a>
+                    <a th:href="@{/livros/excluir/{id}(id=${l.id})}" class="btn btn-danger"
+                       onclick="return confirm('Tem certeza que deseja excluir este livro?')">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
